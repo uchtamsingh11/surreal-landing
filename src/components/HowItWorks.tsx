@@ -27,7 +27,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="py-24 bg-neutral-50 dark:bg-neutral-900">
+    <section className="py-24 bg-black/50">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <motion.h2 
@@ -35,7 +35,7 @@ export function HowItWorks() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-3xl md:text-4xl font-bold mb-4 text-white"
           >
             How AlgoZ Works
           </motion.h2>
@@ -44,7 +44,7 @@ export function HowItWorks() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-lg text-neutral-600 dark:text-neutral-400"
+            className="text-lg text-white/70"
           >
             Our streamlined process gets you from strategy to execution in minutes, not days
           </motion.p>
@@ -61,16 +61,16 @@ export function HowItWorks() {
               className="flex gap-6"
             >
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-400 font-bold">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white font-bold">
                   {step.number}
                 </div>
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                <p className="text-neutral-600 dark:text-neutral-400 mb-3">{step.description}</p>
+                <h3 className="text-xl font-bold mb-2 text-white">{step.title}</h3>
+                <p className="text-white/70 mb-3">{step.description}</p>
                 <ul>
-                  <li className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
-                    <CheckCircle className="h-4 w-4 text-teal-500 mr-2" />
+                  <li className="flex items-center text-sm text-white/70">
+                    <CheckCircle className="h-4 w-4 text-white mr-2" />
                     <span>Fast setup</span>
                   </li>
                 </ul>
