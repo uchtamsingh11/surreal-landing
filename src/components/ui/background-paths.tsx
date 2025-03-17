@@ -19,7 +19,7 @@ function FloatingPaths({ position }: { position: number }) {
     }));
 
     return (
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <svg
                 className="w-full h-full text-white opacity-20"
                 viewBox="0 0 696 316"
@@ -51,6 +51,47 @@ function FloatingPaths({ position }: { position: number }) {
     );
 }
 
+// Add floating particles
+function FloatingParticles() {
+    const particles = Array.from({ length: 50 }, (_, i) => ({
+        id: i,
+        size: Math.random() * 4 + 1,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        duration: Math.random() * 20 + 10,
+        delay: Math.random() * 5,
+    }));
+
+    return (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            {particles.map((particle) => (
+                <motion.div
+                    key={particle.id}
+                    className="absolute rounded-full bg-white/20"
+                    style={{
+                        width: particle.size,
+                        height: particle.size,
+                        left: `${particle.x}%`,
+                        top: `${particle.y}%`,
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{
+                        opacity: [0, 0.5, 0],
+                        y: [0, -30, -60],
+                        x: [0, Math.random() * 20 - 10, Math.random() * 40 - 20],
+                    }}
+                    transition={{
+                        duration: particle.duration,
+                        repeat: Infinity,
+                        delay: particle.delay,
+                        ease: "linear",
+                    }}
+                />
+            ))}
+        </div>
+    );
+}
+
 export function BackgroundPaths({
     title = "Background Paths",
     subtitle,
@@ -64,38 +105,87 @@ export function BackgroundPaths({
 }) {
     const words = title.split(" ");
 
+    // Container animation
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: { 
+            opacity: 1,
+            transition: { 
+                staggerChildren: 0.1,
+                delayChildren: 0.3,
+                duration: 1 
+            }
+        }
+    };
+
+    // Subtitle animation
+    const subtitleVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { 
+                duration: 0.8,
+                ease: "easeOut"
+            }
+        }
+    };
+
+    // Button container animation
+    const buttonContainerVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { 
+                duration: 0.8,
+                delay: 0.6,
+                ease: "easeOut" 
+            }
+        }
+    };
+
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black">
             <div className="absolute inset-0">
                 <FloatingPaths position={1} />
                 <FloatingPaths position={-1} />
+                <FloatingParticles />
             </div>
 
             <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 2 }}
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
                     className="max-w-4xl mx-auto"
                 >
                     <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold mb-8 tracking-tighter">
                         {words.map((word, wordIndex) => (
-                            <span
+                            <motion.span
                                 key={wordIndex}
                                 className="inline-block mr-4 last:mr-0"
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ 
+                                    delay: wordIndex * 0.2,
+                                    duration: 0.8,
+                                    type: "spring",
+                                    stiffness: 100
+                                }}
                             >
                                 {word.split("").map((letter, letterIndex) => (
                                     <motion.span
                                         key={`${wordIndex}-${letterIndex}`}
-                                        initial={{ y: 100, opacity: 0 }}
-                                        animate={{ y: 0, opacity: 1 }}
+                                        initial={{ y: 100, opacity: 0, rotateY: 90 }}
+                                        animate={{ y: 0, opacity: 1, rotateY: 0 }}
                                         transition={{
                                             delay:
                                                 wordIndex * 0.1 +
                                                 letterIndex * 0.03,
                                             type: "spring",
                                             stiffness: 150,
-                                            damping: 25,
+                                            damping: 20,
                                         }}
                                         className="inline-block text-transparent bg-clip-text 
                                         bg-gradient-to-r from-white to-white/70"
@@ -103,15 +193,13 @@ export function BackgroundPaths({
                                         {letter}
                                     </motion.span>
                                 ))}
-                            </span>
+                            </motion.span>
                         ))}
                     </h1>
 
                     {subtitle && (
                         <motion.p 
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.5, duration: 0.8 }}
+                            variants={subtitleVariants}
                             className="text-xl md:text-2xl text-white/70 mb-10 max-w-2xl mx-auto"
                         >
                             {subtitle}
@@ -120,9 +208,9 @@ export function BackgroundPaths({
 
                     {buttonText && (
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 2, duration: 0.8 }}
+                            variants={buttonContainerVariants}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                         >
                             <a href={buttonLink}>
                                 <div
@@ -138,15 +226,23 @@ export function BackgroundPaths({
                                         group-hover:-translate-y-0.5 border border-white/10
                                         hover:shadow-md hover:shadow-white/5"
                                     >
-                                        <span className="opacity-90 group-hover:opacity-100 transition-opacity">
+                                        <motion.span 
+                                            className="opacity-90 group-hover:opacity-100 transition-opacity"
+                                            initial={{ x: -5, opacity: 0 }}
+                                            animate={{ x: 0, opacity: 1 }}
+                                            transition={{ delay: 0.8 }}
+                                        >
                                             {buttonText}
-                                        </span>
-                                        <span
+                                        </motion.span>
+                                        <motion.span
                                             className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 
                                             transition-all duration-300"
+                                            initial={{ x: -10, opacity: 0 }}
+                                            animate={{ x: 0, opacity: 1 }}
+                                            transition={{ delay: 1 }}
                                         >
                                             →
-                                        </span>
+                                        </motion.span>
                                     </Button>
                                 </div>
                             </a>

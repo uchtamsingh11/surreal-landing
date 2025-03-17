@@ -24,7 +24,10 @@ export function Navigation() {
   }, []);
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "py-4 bg-black/80 backdrop-blur-md shadow-md shadow-white/5"
@@ -33,55 +36,39 @@ export function Navigation() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <a href="#" className="text-2xl font-bold text-white">
+          <motion.a 
+            href="#" 
+            className="text-2xl font-bold text-white"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
             AlgoZ
-          </a>
+          </motion.a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a
-              href="#features"
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Features
-            </a>
-            <a
-              href="#"
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Pricing
-            </a>
-            <a
-              href="#"
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Documentation
-            </a>
-            <a
-              href="#"
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              About
-            </a>
-          </nav>
-
-          {/* Desktop CTA */}
+          {/* Desktop Navigation - Simplified */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" className="text-white border-white/20 hover:bg-white/10">
-              Log In
-            </Button>
-            <Button className="bg-white text-black hover:bg-white/90">
-              Sign Up
-            </Button>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button 
+                className="bg-white text-black hover:bg-white/90"
+                onClick={() => window.location.href = "#get-started"}
+              >
+                Get Started
+              </Button>
+            </motion.div>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <motion.button
             className="md:hidden text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -95,46 +82,25 @@ export function Navigation() {
             className="md:hidden bg-black border-t border-white/10"
           >
             <div className="container mx-auto px-4 py-6 flex flex-col space-y-4">
-              <a
-                href="#features"
-                className="text-white/70 hover:text-white transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <motion.div 
+                className="pt-4"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Features
-              </a>
-              <a
-                href="#"
-                className="text-white/70 hover:text-white transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Pricing
-              </a>
-              <a
-                href="#"
-                className="text-white/70 hover:text-white transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Documentation
-              </a>
-              <a
-                href="#"
-                className="text-white/70 hover:text-white transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                About
-              </a>
-              <div className="pt-4 flex flex-col space-y-3">
-                <Button variant="outline" className="w-full text-white border-white/20 hover:bg-white/10">
-                  Log In
+                <Button 
+                  className="w-full bg-white text-black hover:bg-white/90"
+                  onClick={() => {
+                    window.location.href = "#get-started";
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Get Started
                 </Button>
-                <Button className="w-full bg-white text-black hover:bg-white/90">
-                  Sign Up
-                </Button>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }
