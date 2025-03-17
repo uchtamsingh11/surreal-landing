@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 import { DashboardHeader } from "@/components/DashboardHeader";
 import { DashboardSidebar } from "@/components/DashboardSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       <DashboardHeader />
       
-      <div className="flex h-[calc(100vh-61px)]">
+      <div className="flex flex-1 h-[calc(100vh-61px)]">
         <SidebarProvider>
           <DashboardSidebar />
           
