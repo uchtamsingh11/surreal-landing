@@ -46,6 +46,11 @@ export function Navigation() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="flex items-center space-x-4"
           >
+            <Link to="/login">
+              <Button variant="ghost" className="text-white hover:text-white/90 transition-colors">
+                Login
+              </Button>
+            </Link>
             <Link to="/signup">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button 
