@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
@@ -12,7 +11,7 @@ import {
   Hash, 
   ClipboardList,
   Scissors,
-  Tool,
+  Wrench,
   Users,
   Wand,
   FileCode,
@@ -85,7 +84,7 @@ export function DashboardSidebar() {
       path: "/dashboard/scalping",
       subItems: [
         { name: "Manage", icon: Settings, path: "/dashboard/scalping/manage" },
-        { name: "Tool", icon: Tool, path: "/dashboard/scalping/tool" },
+        { name: "Tool", icon: Wrench, path: "/dashboard/scalping/tool" },
       ],
     },
     {
