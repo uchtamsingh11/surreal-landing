@@ -35,7 +35,7 @@ export function DashboardHeader() {
 
   return (
     <motion.header
-      className="bg-black/80 backdrop-blur-md py-3 px-4 border-b border-white/10 flex items-center justify-between"
+      className="bg-black/80 backdrop-blur-md py-3 px-4 border-b border-white/10 flex items-center justify-between w-full"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
