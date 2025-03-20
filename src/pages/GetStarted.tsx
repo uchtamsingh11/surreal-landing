@@ -1,8 +1,6 @@
-
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Navigation } from "@/components/Navigation";
-import { Footer } from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -268,7 +266,6 @@ const GetStarted = () => {
           </motion.div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
