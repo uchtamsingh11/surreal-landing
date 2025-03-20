@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import GetStarted from "./pages/GetStarted";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import BrokerAuth from "./pages/dashboard/BrokerAuth";
@@ -23,6 +24,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/get-started" element={<GetStarted />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
