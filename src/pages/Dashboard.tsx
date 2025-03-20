@@ -7,8 +7,10 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 const Dashboard = () => {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
+      {/* Full-width header above everything */}
       <DashboardHeader />
       
+      {/* Content area with sidebar starts below header */}
       <div className="flex flex-1 h-[calc(100vh-61px)]">
         <SidebarProvider>
           <DashboardSidebar />
